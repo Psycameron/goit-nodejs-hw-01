@@ -33,7 +33,14 @@ async function addContact({ name, email, phone }) {
   return contacts;
 }
 
-async function removeContact(contactId) {}
+async function removeContact(contactId) {
+  const allContacts = await listContacts();
+  const newContactsList = allContacts.filter(
+    (contact) => contact.id !== contactId
+  );
+  await updateList(newContactsList);
+  return newContactsList;
+}
 
 module.exports = {
   listContacts,
